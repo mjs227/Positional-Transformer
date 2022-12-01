@@ -32,8 +32,8 @@ class PTLayer(nn.Module):
         x_cent_ = x_cent * dot(q, self.k_cent(x_cent))
 
         for i in range(self.WINDOW):
-            attn_prev_i = dot(k, self.k_prev[i](x_prev[i]))
-            attn_next_i = dot(k, self.k_next[i](x_next[i]))
+            attn_prev_i = dot(q, self.k_prev[i](x_prev[i]))
+            attn_next_i = dot(q, self.k_next[i](x_next[i]))
             x_cent_ = x_cent_ + (x_prev[i] * attn_prev_i) + (x_next[i] * attn_next_i)
             
             x_prev[i] = self.ff_prev[i](x_prev[i])
