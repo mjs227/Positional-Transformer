@@ -81,8 +81,7 @@ class PTFinalLayer(nn.Module):
         k = self.k(x).reshape(x.size(0), self.WINDOW + 1, self.IN_DIM)
         attns = torch.matmul(q.unsqueeze(1), torch.transpose(k, -2, -1))
         attns = torch.softmax(attns, dim=2)
-        x_cent = torch.matmul(attns, x)  # OG
-        # x_cent = torch.matmul(attns, x) + x[:, -1, :].unsqueeze(1)
+        x_cent = torch.matmul(attns, x)
 
         return torch.nn.functional.normalize(x_cent, p=2, dim=2)
 
